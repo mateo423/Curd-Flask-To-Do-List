@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .task-list {
+            margin-top: 20px;
+        }
+        .task-item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .actions {
+            margin-top: 10px;
+        }
+        .actions a,
+        .actions form {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Lista de Tareas</h1>
+        <a class="btn btn-primary" href="{{ url_for('tasks.add_tasks') }}">Agregar Tarea</a>
+        <div class="task-list">
+            <ul class="list-unstyled">
+                {% for task in tasks %}
+                <li class="task-item">
+                    <strong>{{ task.title }}</strong>: {{ task.description }}
+                    <div class="actions">
+                        <a class="btn btn-warning" href="{{ url_for('tasks.edit_task', task_id=task.id_task) }}">Editar</a>
+                        <form action="{{ url_for('tasks.delete_task', task_id=task.id_task) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
